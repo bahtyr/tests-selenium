@@ -4,6 +4,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import utilities.Driver;
@@ -11,7 +12,6 @@ import utilities.Driver;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class BasicDefinitions {
 
@@ -39,6 +39,7 @@ public class BasicDefinitions {
             try {
                 el = Driver.get().findElement(By.xpath(it.next()));
             } catch (NoSuchElementException e) {
+                //ignore
             }
         }
 
@@ -64,13 +65,19 @@ public class BasicDefinitions {
 
     @Then("Verify that user is navigated to {string}")
     public void verify_that_user_is_navigated_to(String url) {
-        System.out.println(Driver.get().getCurrentUrl());
-        System.out.println(url);
         Assert.assertEquals(Driver.get().getCurrentUrl(), url);
     }
 
     @Then("Accept alert")
     public void accept_alert() {
         Driver.get().switchTo().alert().accept();
+    }
+
+    @Then("Dismiss bottom Ad")
+    public void close_ad_bottom() {
+        Driver.wait(2);
+        String str = "document.elementFromPoint(30, window.innerHeight - 150).click();";
+        ((JavascriptExecutor) Driver.get()).executeScript(str);
+        Driver.wait(2);
     }
 }
