@@ -10,11 +10,11 @@ Feature: TC2: User Login valid and invalid
   Scenario: Invalid login
     Given Enter login email and password
       | francisco@yahoo.com | 1234567890 |
-    Given Click on 'Login' button
-    Then Verify that 'Your email or password is incorrect!' is visible
+    Given Click on "Login" button
+    Then Verify error "Your email or password is incorrect!" is visible
 
   Scenario: Valid login
     Given Enter login email and password
       | francisco@yahoo.com | 123456 |
-    Given Click on 'Login' button
-    Then Verify that 'Logged in as' is visible
+    Given Click on "Login" button
+    Then Verify that "Logged in as" is visible

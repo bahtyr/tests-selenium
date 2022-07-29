@@ -21,12 +21,17 @@ public class TC01_RegisterUser {
     public void verify_that_home_page_is_visible_successfully() {
     }
 
-    @Then("Enter name and email address")
-    public void enter_name_and_email_address() {
+    @Then("Enter signup name and email")
+    public void enter_signup_name_and_email(DataTable table) {
         WebElement name = Driver.get().findElement(By.xpath("//input[@data-qa='signup-name']"));
         WebElement email = Driver.get().findElement(By.xpath("//input[@data-qa='signup-email']"));
-        name.sendKeys(faker.name().username());
-        email.sendKeys(faker.internet().emailAddress());
+        if ("faker".equals(table.row(0).get(0))) {
+            name.sendKeys(faker.name().username());
+            email.sendKeys(faker.internet().emailAddress());
+        } else {
+            name.sendKeys(table.row(0).get(0));
+            email.sendKeys(table.row(0).get(1));
+        }
     }
 
     @Then("Fill user details part1")

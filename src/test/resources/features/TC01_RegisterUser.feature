@@ -8,8 +8,8 @@ Feature: TC1: Register User
     Then Verify that "New User Signup!" is visible
 
   Scenario: Register a new user
-    And Enter name and email address
-      #faker
+    And Enter signup name and email
+      | faker | faker |
     Then Click on "Signup" button
     Then Verify that "Enter Account Information" is visible
     Then Fill user details part1

@@ -36,7 +36,7 @@ public class BasicDefinitions {
         }
     }
 
-    @Then("Verify that {string} is visible")
+    @Then("Verify that/error {string} is visible")
     public void verify_that_is_visible(String string) {
         try {
             WebElement el = Driver.get().findElement(By.xpath("//*[contains(text(), '" + string + "')]"));
