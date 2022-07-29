@@ -51,4 +51,11 @@ public class BasicDefinitions {
         WebElement label = Driver.get().findElement(By.xpath("//label[contains(text(), '" + string + "')]"));
         label.click();
     }
+
+    @Then("Verify that user is navigated to {string}")
+    public void verify_that_user_is_navigated_to(String url) {
+        System.out.println(Driver.get().getCurrentUrl());
+        System.out.println(url);
+        Assert.assertEquals(Driver.get().getCurrentUrl(), url);
+    }
 }
