@@ -8,6 +8,11 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import utilities.Driver;
 
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Stream;
+
 public class BasicDefinitions {
 
     @Given("Launch browser")
@@ -23,17 +28,22 @@ public class BasicDefinitions {
     @Given("Click (on) {string} button")
     public void click_on_button(String string) {
         WebElement el = null;
-        try {
-            el = Driver.get().findElement(By.xpath("//button[contains(text(), '" + string + "')]"));
-        } catch (NoSuchElementException e) {
-            el = Driver.get().findElement(By.xpath("//a[contains(text(), '" + string + "')]"));
-        } finally {
-            if (el != null) {
-                el.click();
-            } else {
-                Assert.fail(string + " element not found.");
+        List<String> selectors = Arrays.asList(
+                "//button[contains(text(), '" + string + "')]",
+                "//a[contains(text(), '" + string + "')]",
+                "//input[contains(@value, '" + string + "')]"
+        );
+        Iterator<String> it = selectors.iterator();
+
+        while (it.hasNext() && el == null) {
+            try {
+                el = Driver.get().findElement(By.xpath(it.next()));
+            } catch (NoSuchElementException e) {
             }
         }
+
+        if (el != null) el.click();
+        else Assert.fail(string + " element not found.");
     }
 
     @Then("Verify that/error {string} is visible")
@@ -57,5 +67,10 @@ public class BasicDefinitions {
         System.out.println(Driver.get().getCurrentUrl());
         System.out.println(url);
         Assert.assertEquals(Driver.get().getCurrentUrl(), url);
+    }
+
+    @Then("Accept alert")
+    public void accept_alert() {
+        Driver.get().switchTo().alert().accept();
     }
 }
