@@ -12,7 +12,7 @@ import utilities.Radio;
 
 import java.util.List;
 
-public class TC01_RegisterUser {
+public class TC01_UserRegister {
 
     SignupPage page;
     Faker faker = new Faker();

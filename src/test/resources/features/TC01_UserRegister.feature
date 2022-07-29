@@ -23,8 +23,3 @@ Feature: TC1: Register User
     Then Verify that "Account Created!" is visible
     Then Click on "Continue" button
     Then Verify that "Logged in as" is visible
-
-  Scenario: Delete the user
-    Then Click on "Delete Account" button
-    Then Verify that "Account Deleted!" is visible
-    Then Click on "Continue" button
