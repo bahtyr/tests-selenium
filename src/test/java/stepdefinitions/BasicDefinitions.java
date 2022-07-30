@@ -31,7 +31,8 @@ public class BasicDefinitions {
         List<String> selectors = Arrays.asList(
                 "//button[contains(text(), '" + string + "')]",
                 "//a[contains(text(), '" + string + "')]",
-                "//input[contains(@value, '" + string + "')]"
+                "//input[contains(@value, '" + string + "')]",
+                "//*[@id = '" + string + "']"
         );
         Iterator<String> it = selectors.iterator();
 
@@ -50,7 +51,7 @@ public class BasicDefinitions {
     @Then("Verify that/error {string} is visible")
     public void verify_that_is_visible(String string) {
         try {
-            WebElement el = Driver.get().findElement(By.xpath("//*[contains(text(), '" + string + "')]"));
+            WebElement el = Driver.get().findElement(By.xpath("//body//*[contains(text(), '" + string + "')]"));
             Assert.assertTrue(string + " element is not visible.", el.isDisplayed());
         } catch (NoSuchElementException e) {
             Assert.fail(string + " element not found.");
