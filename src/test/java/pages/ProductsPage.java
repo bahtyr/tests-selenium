@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -9,6 +10,11 @@ public class ProductsPage {
 
     public ProductsPage() {
         PageFactory.initElements(Driver.get(), this);
+    }
+
+    public static WebElement getProductAt(int position) {
+        return Driver.get().findElements(By.cssSelector(".features_items .col-sm-4")).get(position);
+        //return Driver.get().findElement(By.xpath("//*[contains(@class, 'features_items')]/*[contains(@class, 'col-sm-4')]["+position+"]"));
     }
 
     @FindBy(css = ".features_items")                 public WebElement productsList;
