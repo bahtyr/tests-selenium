@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import utilities.Driver;
 
 import java.util.Arrays;
@@ -31,6 +32,7 @@ public class BasicDefinitions {
         List<String> selectors = Arrays.asList(
                 "//button[contains(text(), '" + string + "')]",
                 "//a[contains(text(), '" + string + "')]",
+                "//a//*[contains(text(), '" + string + "')]",
                 "//input[contains(@value, '" + string + "')]",
                 "//*[@id = '" + string + "']"
         );
@@ -44,7 +46,10 @@ public class BasicDefinitions {
             }
         }
 
-        if (el != null) el.click();
+        if (el != null) {
+            Driver.waiter(1).until(ExpectedConditions.elementToBeClickable(el));
+            el.click();
+        }
         else Assert.fail(string + " element not found.");
     }
 

@@ -1,18 +1,20 @@
 package utilities;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class Driver {
 
     private static WebDriver webDriver;
 
-    private Driver() {}
+    private Driver() {
+    }
 
     public static WebDriver get() {
         if (webDriver != null) {
@@ -48,9 +50,13 @@ public class Driver {
 
     public static void wait(int secs) {
         try {
-            Thread.sleep(1000 * secs);
+            Thread.sleep( (long) 1000 * secs);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static WebDriverWait waiter(int seconds) {
+        return new WebDriverWait(Driver.get(), Duration.ofSeconds(seconds));
     }
 }
